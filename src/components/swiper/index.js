@@ -88,7 +88,7 @@ function Swiper(props) {
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onDoubleClick={() => handleDoubleClick(index)}
-            style={{backgroundImage: `url(${item.url})`, width:containerWidth}}
+            style={{backgroundImage: `url(${item})`, width:containerWidth}}
         ></div>
     ))
 
@@ -175,6 +175,6 @@ Swiper.defaultProps = {
     slideButton: true,
     loop: true,
     autoPlay: false,
-    handleDoubleClick: function(){},
+    handleDoubleClick: function(n){console.log('clicked: ', n)},
 }
 export default Swiper;
