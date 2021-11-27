@@ -62,6 +62,20 @@ function Swiper(props) {
         }
     }
 
+    // 移动端监听滑动
+    const handleTouchStart = e => {
+        currentX = e.changedTouches[0].clientX;
+    }
+    const handleTouchEnd = e => {
+        const end = e.changedTouches[0].clientX;
+        if( end - currentX > 20) {
+            handleSlide(false);
+        }
+        else if( currentX - end > 20) {
+            handleSlide(true);
+        }
+    }
+
     // 设置自动播放
     useEffect(() => {
         if(loop){
@@ -87,6 +101,8 @@ function Swiper(props) {
             className={style.swiper_item}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
             onDoubleClick={() => handleDoubleClick(index)}
             style={{backgroundImage: `url(${item})`, width:containerWidth}}
         ></div>
