@@ -9,6 +9,7 @@ function Swiper(props) {
         pagination,
         handleDoubleClick,
         slideButton,
+        loop
     } = props;
     if(list.length === 0){
         console.warn("The length of list shouldn't be less than 1");
@@ -27,11 +28,23 @@ function Swiper(props) {
 
     // 切换页面函数
     const handleSlide = (isNext) => {
-        if(isNext && currentPage < list.length-1) {
-            setCurrentPage(currentPage + 1);
+        if(isNext) {
+            if(currentPage < list.length-1){
+                setCurrentPage(currentPage + 1);
+            }
+            else if(loop) {
+                setCurrentPage(0);
+            }
+            
         }
-        else if(!isNext && currentPage > 0) {
-            setCurrentPage(currentPage - 1)
+        else{
+            if(currentPage > 0){
+                setCurrentPage(currentPage - 1);
+            }
+            else if(loop){
+                setCurrentPage(list.length-1);
+            }
+            
         } 
     }
 
@@ -133,6 +146,9 @@ Swiper.propTypes = {
     // 是否显示上/下一个按钮
     slideButton: PropTypes.bool,
 
+    // 是否循环播放
+    loop: PropTypes.bool,
+
     // 双击响应函数，接收下标N
     handleDoubleClick: PropTypes.func,
 }
@@ -142,6 +158,7 @@ Swiper.defaultProps = {
     height: '100%',
     pagination: true,
     slideButton: true,
+    loop: true,
     handleDoubleClick: function(){},
 }
 export default Swiper;
