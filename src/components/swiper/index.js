@@ -9,7 +9,8 @@ function Swiper(props) {
         pagination,
         handleDoubleClick,
         slideButton,
-        loop
+        loop,
+        interval
     } = props;
     if(list.length === 0){
         console.warn("The length of list shouldn't be less than 1");
@@ -79,11 +80,11 @@ function Swiper(props) {
     // 设置自动播放
     useEffect(() => {
         if(loop){
-            const interval = setInterval(() => {
+            const auto = setInterval(() => {
                 handleSlide(true);
-            }, 3000)
+            }, interval)
             return () => {
-                clearInterval(interval);
+                clearInterval(auto);
             }
         }
     })
@@ -180,6 +181,9 @@ Swiper.propTypes = {
     // 是否自动播放
     autoPlay: PropTypes.bool,
 
+    // 自动播放时间间隔
+    interval: PropTypes.number,
+
     // 双击响应函数，接收下标N
     handleDoubleClick: PropTypes.func,
 }
@@ -192,5 +196,6 @@ Swiper.defaultProps = {
     loop: true,
     autoPlay: false,
     handleDoubleClick: function(n){console.log('clicked: ', n)},
+    interval: 3000,
 }
 export default Swiper;
