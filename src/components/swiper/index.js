@@ -62,6 +62,18 @@ function Swiper(props) {
         }
     }
 
+    // 设置自动播放
+    useEffect(() => {
+        if(loop){
+            const interval = setInterval(() => {
+                handleSlide(true);
+            }, 3000)
+            return () => {
+                clearInterval(interval);
+            }
+        }
+    })
+
     // 设置wrapper的宽度为图片数量 * 父级元素宽度，并通过transform属性达到图片滚动效果
     const wrapperStyle = {
         width: `${list.length}00%`,
@@ -149,6 +161,9 @@ Swiper.propTypes = {
     // 是否循环播放
     loop: PropTypes.bool,
 
+    // 是否自动播放
+    autoPlay: PropTypes.bool,
+
     // 双击响应函数，接收下标N
     handleDoubleClick: PropTypes.func,
 }
@@ -159,6 +174,7 @@ Swiper.defaultProps = {
     pagination: true,
     slideButton: true,
     loop: true,
+    autoPlay: false,
     handleDoubleClick: function(){},
 }
 export default Swiper;
