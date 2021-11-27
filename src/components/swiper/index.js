@@ -10,7 +10,8 @@ function Swiper(props) {
         handleDoubleClick,
         slideButton,
         loop,
-        interval
+        interval,
+        autoPlay
     } = props;
     if(list.length === 0){
         console.warn("The length of list shouldn't be less than 1");
@@ -79,7 +80,7 @@ function Swiper(props) {
 
     // 设置自动播放
     useEffect(() => {
-        if(loop){
+        if(autoPlay){
             const auto = setInterval(() => {
                 handleSlide(true);
             }, interval)
