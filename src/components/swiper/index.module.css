@@ -1,4 +1,5 @@
 .swiper_container {
+    position: relative;
     height: 100%;
     width: 100%;
     border-bottom: 1px solid rgb(231, 225, 225);
@@ -12,7 +13,6 @@
 .swiper_item {
     height: 100%;
     background-color: #fff;
-    cursor: pointer;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -26,7 +26,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
 }
 .pagination_item {
     width: 8px;
@@ -34,10 +33,31 @@
     border-radius: 4px;
     background-color: #eee;
     margin: 0 10px;
+    cursor: pointer;
 }
 .pagination_item:hover {
     background-color: #999;
 }
 .pagination_active {
     background-color: #999;
+}
+
+.slideButton {
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    position: absolute;
+    background-color: #eee;
+    top: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.5;
+}
+.slideButton:hover{
+    opacity: 1;
+}
+.arrow_right {
+    right: 0;
 }

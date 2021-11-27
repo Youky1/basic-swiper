@@ -8,6 +8,7 @@ function Swiper(props) {
         list,
         pagination,
         handleDoubleClick,
+        slideButton,
     } = props;
     if(list.length === 0){
         console.warn("The length of list shouldn't be less than 1");
@@ -24,17 +25,27 @@ function Swiper(props) {
     const [currentPage, setCurrentPage] = useState(0);
     let currentX = null;
 
+    // 切换页面函数
+    const handleSlide = (isNext) => {
+        if(isNext && currentPage < list.length-1) {
+            setCurrentPage(currentPage + 1);
+        }
+        else if(!isNext && currentPage > 0) {
+            setCurrentPage(currentPage - 1)
+        } 
+    }
+
     // 监听滑动
     const handleMouseDown = e => {
         currentX = e.clientX
     }
     const handleMouseUp = e => {
         const end = e.clientX;
-        if( end - currentX > 20 && currentPage > 0) {
-            setCurrentPage(currentPage - 1)
+        if( end - currentX > 20) {
+            handleSlide(false);
         }
-        else if( currentX - end > 20 && currentPage < list.length-1) {
-            setCurrentPage(currentPage + 1)
+        else if( currentX - end > 20) {
+            handleSlide(true);
         }
     }
 
@@ -62,6 +73,7 @@ function Swiper(props) {
         setCurrentPage(index);
     }
 
+    // 分页器样式
     const paginationItemClass = (index) => {
         const isActive = index === currentPage ?  ' ' + style.pagination_active : '';
         return style.pagination_item + isActive;
@@ -80,11 +92,28 @@ function Swiper(props) {
         </div>
     )
 
+    
+
+    // 上/下一个按钮
+    const slideButtons = (
+        <>
+            <div 
+                className={style.slideButton} 
+                onClick={() => handleSlide(false)}
+            >{'<'}</div>
+            <div 
+                className={style.slideButton + ' ' + style.arrow_right}
+                onClick={() => handleSlide(true)}
+            >{'>'}</div>
+        </>
+    )
+
     return (
         <div className={style.swiper_container} ref={containerRef} style={{width,height}}>
             <div className={style.swiper_wrapper} style={wrapperStyle}>
                 { swiperItems }
             </div>
+            {slideButton && slideButtons}
             {pagination && paginationBar}
         </div>
     )
@@ -101,6 +130,9 @@ Swiper.propTypes = {
     // 是否显示分页器
     pagination: PropTypes.bool,
 
+    // 是否显示上/下一个按钮
+    slideButton: PropTypes.bool,
+
     // 双击响应函数，接收下标N
     handleDoubleClick: PropTypes.func,
 }
@@ -109,6 +141,7 @@ Swiper.defaultProps = {
     width: '100%',
     height: '100%',
     pagination: true,
+    slideButton: true,
     handleDoubleClick: function(){},
 }
 export default Swiper;

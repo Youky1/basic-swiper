@@ -9,7 +9,7 @@ function App() {
 	]
 	return (
 		<div className='test_container'>
-			<Swiper list={list} pagination/>
+			<Swiper list={list} />
 		</div>
 	);
 }
